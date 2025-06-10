@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>perfil alumno</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+        <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <h1 class="text">perfil alumno </h1>
+    <h2 class="text">Datos personales</h2>
+<form class="text" id="datos-personales-form">
+     <label for="Nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" required>
+<br>
+    <label for="Apellido">Apellido:</label>
+  <input type="text" id="apellido" name="apellido" required>
+<br>
+  <label for="edad">Edad:</label>
+  <input type="number" id="edad" name="edad" min="10" max="100" required>
+  <br>
+  <label for="carrera">Carrera:</label>
+  <select id="carrera" name="carrera" required>
+    <option value="">Selecciona una carrera</option>
+    <option value="Mantenimiento Industrial">Mantenimiento Industrial</option>
+    <option value="Redes Eléctricas">Redes Eléctricas</option>
+    <!-- Agrega más opciones si lo necesitas -->
+  </select>
+  <br>
+  <button class="button" type="submit">Guardar</button>
+</form>
+<div id="mensaje-guardado"></div>
+    <div class="container">
+        <div>
+            <h2 class="text">tareas:</h2>
+            <ul class="text" id="tareas-list"></ul>
+        </div>
+        <div class="div_opciones">
+            <h2 class="text">Opciones:</h2>
+         <div>
+                <a href="index.html"><button class="button">Cerrar Sesión</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/firebase-init.js"></script>
+    <script src="js/autch.js"></script>
+    <script src="js/alumno.js"></script>
+</body>
+</html>

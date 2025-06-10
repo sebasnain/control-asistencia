@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>perfil profesor</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <h1>perfil profesor</h1>
+    <div class="container">
+        <div class="div_opciones">
+            <h2 class="text">Opciones:</h2>
+              <div>
+                <button id="agregar-tarea" class="button">Agregar tarea +</button>
+            </div>
+
+            <div>
+                <button id="AlumnosMantenimiento" class="button">Alumnos de Mantenimiento</button>
+                <button id="AlumnosRedes" class="button">Alumnos de Redes</button>
+            </div>
+            <div id="list_alumnos">
+                <ul id="alumnos-list"></ul>
+            </div>
+            <div>
+    <h3>Tareas del alumno seleccionado:</h3>
+    <ul id="tareas-list"></ul>
+</div>
+            <div>
+                <a href="index.html"><button class="button">Cerrar Sesión</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/firebase-init.js"></script>
+    <script src="js/autch.js"></script>
+    <script src="js/profesor.js"></script>
+</body>
+</html>

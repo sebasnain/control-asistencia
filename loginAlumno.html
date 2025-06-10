@@ -9,24 +9,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap" rel="stylesheet">
+ <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.2/firebase-ui-auth.css" />
 
 </head>
+ 
+   
+    
 <body>
-    <h1 class="text">iniciar secion  </h1>
-          <form id="loginForm">
-            <div class="form-group">
-                <label for="email" class="text">Correo electrónico</label>
-                <input type="email" id="email" name="email" placeholder="tu@correo.com" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password" class="text">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
-            </div>
-            
-           <a href="alumno.html"><button type="submit" class="button">Ingresar</button></a> 
-        </form>
-  <h4 class="text">No tienes cuenta ?</h4>
-    <div> <a href="registrarme.html"><button class="button">Registrarme</button></a></div>
+    <h1 class="text">iniciar sesion  </h1>    <!-- Agrega Firebase App (core) -->
+  
+         <div id="firebaseui-auth-container"></div>
+
+
+          <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <!-- Agrega Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+        
+    <!-- Agrega FirebaseUI -->
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.2/firebase-ui-auth.js"></script>
+<script src="js/firebase-init.js"></script>
+    <script src="js/autch.js"></script>
+
 </body>
 </html>
