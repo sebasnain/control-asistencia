@@ -1,4 +1,5 @@
 console.log("desde alumnos");
+
 const db = firebase.firestore();
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -12,37 +13,78 @@ firebase.auth().onAuthStateChanged(function(user) {
         snapshot.forEach((doc) => {
           const tarea = doc.data();
           const li = document.createElement("li");
-          li.textContent = `${tarea.titulo} - ${tarea.estado} - ${tarea.descripcion} - ${tarea.fechaCreacion.toDate().toLocaleDateString()}`;
-          tareasList.appendChild(li);
+          li.innerHTML = `${"📌"} ${tarea.titulo} - ${tarea.estado == "enviado" ? "➡️" : "⚠️"} ${tarea.estado}  - ${"📅"} ${tarea.fechaCreacion.toDate().toLocaleDateString()} <br> ${"Descripción:"} ${tarea.descripcion}`;
+          li.className = "listaStyle";
 
-          /////////////////////////probando
-           const calificacion = document.createElement("h3");
-           //tengo que traer informacion de la tabla tareasEnviadas
-           db.collection("tareasEnviadas").where("tareaId", "==", doc.id).get().then(snapshot => {
-             snapshot.forEach(doc => {
-               const tareaEnviada = doc.data();
-               calificacion.textContent = `Calificación: ${tareaEnviada.estadoDeTarea || "sin calificar"}`;
-               li.appendChild(calificacion);
-             });
-           });
+          // Mostrar calificación si existe
+          db.collection("tareasEnviadas")
+            .where("alumnoId", "==", user.uid)
+            .where("tareaId", "==", doc.id)
+            .get()
+            .then((querySnapshot) => {
+              let yaEnviada = false;
+              let entregaDocId = null;
+              let linkActual = "";
+              let estadoDeTarea = "sin calificar";
+              if (!querySnapshot.empty) {
+                yaEnviada = true;
+                const tareaEnviada = querySnapshot.docs[0].data();
+                entregaDocId = querySnapshot.docs[0].id;
+                linkActual = tareaEnviada.link || "";
+                estadoDeTarea = tareaEnviada.estadoDeTarea || "sin calificar";
+              }
 
+              // Mostrar calificación
+              const calificacion = document.createElement("h3");
+              calificacion.textContent = `Calificación: ${estadoDeTarea}`;
+              li.appendChild(calificacion);
 
-           ///////////////////////////////////////////
-          const boton = document.createElement("button");
-          boton.textContent = "enviar tarea";
-          boton.addEventListener("click", () => {
-            const link = prompt("agregar link de la tarea"); //validar que se mande un link
-            //crear el boton de editar
+              // Botón enviar o editar
+              if (!yaEnviada) {
+                const boton = document.createElement("button");
+                boton.textContent = "enviar tarea";
+                boton.className = "button";
+                boton.addEventListener("click", () => {
+                  const link = prompt("agregar link de la tarea");
+                  if (!link) {
+                    alert("Por favor, ingresa un link válido.");
+                    return;
+                  }
+                  // Cambiar estado a enviado
+                  db.collection("tareas").doc(doc.id).update({
+                    titulo: tarea.titulo,
+                    descripcion: tarea.descripcion,
+                    estado: "enviado",
+                    link: link
+                  });
+                  // Guardar en tareasEnviadas
+                  db.collection("tareasEnviadas").add({
+                    titulo: tarea.titulo,
+                    descripcion: tarea.descripcion,
+                    alumnoId: user.uid,
+                    nombre: user.displayName,
+                    tareaId: doc.id,
+                    link: link,
+                    fechaEnvio: new Date(),
+                    estadoDeTarea: "sin calificar"
+                  }).then(() => {
+                    // Recargar la lista para reflejar el cambio
+                    // (opcional: puedes usar onSnapshot en tareasEnviadas para hacerlo reactivo)
+                  });
+                });
+                li.appendChild(boton);
+              } else {
                 const editarBoton = document.createElement("button");
                 editarBoton.textContent = "Editar link";
+                editarBoton.className = "button";
                 editarBoton.addEventListener("click", () => {
-                  const nuevoLink = prompt("Nuevo link de la tarea:", link || "");
+                  const nuevoLink = prompt("Nuevo link de la tarea:", linkActual);
                   if (!nuevoLink) {
                     alert("Por favor, ingresa un link válido.");
                     return;
                   }
                   // Actualizar el link en tareasEnviadas
-                  db.collection("tareasEnviadas").doc(entregaDoc.id).update({
+                  db.collection("tareasEnviadas").doc(entregaDocId).update({
                     link: nuevoLink
                   });
                   // (Opcional) Actualizar también en tareas si quieres
@@ -50,53 +92,11 @@ firebase.auth().onAuthStateChanged(function(user) {
                     link: nuevoLink
                   });
                 });
-                // Agregar el botón de editar al li
                 li.appendChild(editarBoton);
+              }
 
-
-
-                /////////////////////////////////////////////
-            if (!link) {
-              alert("Por favor, ingresa un link válido.");
-              return;
-            }
-            // Verificar si ya existe una entrega para esta tarea y este alumno
-            db.collection("tareasEnviadas")
-              .where("alumnoId", "==", user.uid)
-              .where("tareaId", "==", doc.id)
-              .get()
-              .then((querySnapshot) => {
-                if (!querySnapshot.empty) {
-                  alert("Ya enviaste esta tarea. Si necesitas editar el link, usa el botón de editar.");
-                  return;
-                }
-
-                // Cambiar estado a enviado
-                db.collection("tareas").doc(doc.id).update({
-                  titulo: tarea.titulo,
-                  descripcion: tarea.descripcion,
-                  estado: "enviado",
-                  link: link
-                });
-
-
-
-                
-
-                // Guardar en tareasEnviadas
-                db.collection("tareasEnviadas").add({
-                  titulo: tarea.titulo,
-                  descripcion: tarea.descripcion,
-                  alumnoId: user.uid,
-                  nombre: user.displayName,
-                  tareaId: doc.id,
-                  link: link,
-                  fechaEnvio: new Date(),
-                  estadoDeTarea: "sin calificar" // Estado inicial de la tarea enviada
-                });
-              });
-          });
-          tareasList.appendChild(boton);
+              tareasList.appendChild(li);
+            });
         });
       });
 
@@ -139,13 +139,42 @@ firebase.auth().onAuthStateChanged(function(user) {
           tareasEnviadas: tareasEnviadas
         }, { merge: true }).then(() => {
           mensaje.textContent = "Datos guardados correctamente.";
+          editarDatos.style.display = "none"; // Ocultar al guardar
         });
       });
     });
-    
+
+    // --- Mostrar/ocultar edición de datos personales ---
+    const buttonEditarPerfil = document.getElementById("buttonEditarPerfil");
+    const editarDatos = document.getElementById("editar-datos-personales");
+    const cerrarEdicion = document.getElementById("cerrar-edicion");
+
+    buttonEditarPerfil.addEventListener("click", () => {
+      editarDatos.style.display = "block";
+    });
+
+    cerrarEdicion.addEventListener("click", () => {
+      editarDatos.style.display = "none";
+    });
 
   } else {
     // Si no está autenticado, redirige al login
     window.location.href = "loginAlumno.html";
   }
+db.collection("alumnos").doc(user.uid).get().then(doc => {
+  if (doc.exists) {
+    const datos = doc.data();
+    if (datos.edad) document.getElementById('edad').value = datos.edad;
+    if (datos.carrera) document.getElementById('carrera').value = datos.carrera;
+    if (datos.nombre) document.getElementById('nombre').value = datos.nombre;
+    if (datos.apellido) document.getElementById('apellido').value = datos.apellido;
+
+    // Mostrar en los spans del perfil
+    document.getElementById('nombrePerfil').textContent = datos.nombre || "";
+    document.getElementById('apellidoPerfil').textContent = datos.apellido || "";
+    document.getElementById('edadPerfil').textContent = datos.edad ? `Edad: ${datos.edad}` : "";
+    document.getElementById('carreraPerfil').textContent = datos.carrera ? `Carrera: ${datos.carrera}` : "";
+  }
+});
+  
 });

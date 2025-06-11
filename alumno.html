@@ -11,40 +11,54 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-    <h1 class="text">perfil alumno </h1>
-    <h2 class="text">Datos personales</h2>
-<form class="text" id="datos-personales-form">
-     <label for="Nombre">Nombre:</label>
-  <input type="text" id="nombre" name="nombre" required>
-<br>
-    <label for="Apellido">Apellido:</label>
-  <input type="text" id="apellido" name="apellido" required>
-<br>
-  <label for="edad">Edad:</label>
-  <input type="number" id="edad" name="edad" min="10" max="100" required>
-  <br>
-  <label for="carrera">Carrera:</label>
-  <select id="carrera" name="carrera" required>
-    <option value="">Selecciona una carrera</option>
-    <option value="Mantenimiento Industrial">Mantenimiento Industrial</option>
-    <option value="Redes Eléctricas">Redes Eléctricas</option>
-    <!-- Agrega más opciones si lo necesitas -->
-  </select>
-  <br>
-  <button class="button" type="submit">Guardar</button>
-</form>
-<div id="mensaje-guardado"></div>
+    <h1 class="text">Perfil Alumno </h1>
+    <h2 class="text">Datos personales:</h2>
+    <div class="containerDatosPersonales">
+        <div id="perfil-datos" class="perfil-datos-personales">
+          <span id="nombrePerfil"></span>
+          <span id="apellidoPerfil"></span>
+          <span id="edadPerfil"></span>
+          <span id="carreraPerfil"></span>
+          <button class="button" id="buttonEditarPerfil">Editar</button>
+        </div>
+        </div>
+
+        <div id="editar-datos-personales" style="display:none; position:relative;">
+          
+          <div class="containerFormulario">
+
+          <form id="datos-personales-form" class="formulario">
+            <button class="buttonX" id="cerrar-edicion" >✖</button>
+    <!-- tus campos de edición aquí -->
+    <input id="nombre" name="nombre" placeholder="Nombre" />
+    <input id="apellido" name="apellido" placeholder="Apellido" />
+    <input id="edad" name="edad" placeholder="Edad" />
+    <select id="carrera" name="carrera">
+      <option value="">Selecciona carrera</option>
+      <option value="Mantenimiento Industrial">Mantenimiento Industrial</option>
+      <option value="Redes Eléctricas">Redes Eléctricas</option>
+    </select>
+    <button class="button" type="submit">Aceptar</button>
+  </form>
+  <div id="mensaje-guardado"></div>
+
+ </div>
+</div>
+
+
+    
+<div id="mensaje-guardado 💾"></div>
+
     <div class="container">
         <div>
-            <h2 class="text">tareas:</h2>
+            <h2 class="text" style="margin-top: 30px;" >Mis tareas:</h2>
             <ul class="text" id="tareas-list"></ul>
         </div>
-        <div class="div_opciones">
-            <h2 class="text">Opciones:</h2>
-         <div>
-                <a href="index.html"><button class="button">Cerrar Sesión</button></a>
-            </div>
-        </div>
+    </div>
+
+    <div class="div_opcionesAlumnos">
+        <h2 class="text">Opciones:</h2>
+        <a href="index.html"><button class="button">Cerrar Sesión</button></a>
     </div>
 
     <script src="js/firebase-init.js"></script>

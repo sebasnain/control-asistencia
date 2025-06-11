@@ -35,20 +35,137 @@ background: linear-gradient(176deg, rgba(0, 212, 255, 1) 0%, rgba(9, 9, 121, 1) 
     background-color: rgb(212, 94, 10);
     color: antiquewhite;
     border-radius: 10px;
-    margin: 20px;
+    margin: 15px;
+    border: none;
 
 }
 .button:hover{
     background-color: rgb(226, 119, 43) ;
     cursor: pointer;
+    box-shadow: #00D4FF 0px 0px 10px 2px;
+    scale: 1.05;
 }
 
-.container{
-  
+.buttonX{
+    width: 25px;
+    height: 25px;
+    margin: auto;
+    background-color: rgb(212, 94, 10);
+    color: antiquewhite;
+    border-radius: 25px;
+    margin: 15px;
+    border: none;
+    position:absolute; /* Posiciona el botón en la esquina superior derecha  pero respecto al formulario*/
+     top:4px; right:4px;
+     display: flex;
+     align-items: center;
+        justify-content: center;
+
+}
+.buttonX:hover{
+    background-color: rgb(226, 119, 43) ;
+    cursor: pointer;
+    box-shadow: #00D4FF 0px 0px 10px 2px;
+    scale: 1.05;
+}
+
+.listaDeTareas{
+    width: 500px;
+    height: auto;
+    margin: 20px;
+    background-color: rgba(55, 5, 238, 0.308);
+    border-radius: 10px;
+    padding: 20px;
+    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado grande */
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 100;
+    font-size: 20px;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    color: rgb(241, 235, 235);
+}
+
+.listaDeTareasPorAlumno{
+    width: 500px;
+    height: auto;
+    margin: 5px;
+    background-color: rgba(55, 5, 238, 0.308);
+    border-radius: 10px;
+    padding: 20px;
+    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado grande */
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 100;
+    font-size: 20px;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    color: rgb(241, 235, 235);
+}
+
+.container-lista-tareas-creadas{
+    background-color: seagreen;
+}
+
+.listaStyle {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    font-size: 20px;
+}
+
+
+
+.listadeTareas{
+     color: rgb(241, 235, 235);
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 1000;
+    font-size: 20px;
+    font-style: normal;
+    display: block;
+}
+
+.listadeTareaOculta{
+      color: rgb(150, 10, 10);
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 1000;
+    font-size: 20px;
+    font-style: normal;
+    display: block;
+}
+
+.div_opciones{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: auto;
     width: 100%;
+}
+
+.buttonNuevaTarea{
+    width: 500px;
+    height: 30px;
+    margin: auto;
+    background-color: rgb(212, 94, 10);
+    color: antiquewhite;
+    border-radius: 10px;
+    margin: 20px;
+    border: none;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 1000;
+    font-size: 20px;
+    font-style: normal;
+}	
+
+
+.container{
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+    max-height: 750px; /* Limita la altura máxima del contenedor */
+    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado grande */
+}
+
+.container > *:first-child {
+    margin-top: 250px;
 }
 .div_opciones{
     flex-direction: column;
@@ -58,8 +175,151 @@ background: linear-gradient(176deg, rgba(0, 212, 255, 1) 0%, rgba(9, 9, 121, 1) 
     margin: auto;
 }
 
+#alumnos-list{
+    color: white;
+    font-family: "Ubuntu", sans-serif;
+}
+
+.buttonAlumnos{
+    width: 500px;
+    height: 100px;
+    margin: auto;
+    background-color:rgba(10, 172, 212, 0.445); 
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 1000;
+    font-size: 20px;
+    font-style: normal;
+    color: rgb(15, 15, 15);
+    border-radius: 15px;
+    border: none;
+    margin: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+      img {
+        width: 40px;
+        height: 40px;
+        margin: 20px;
+    }
+
+}
+
+.buttonAlumnos:hover{
+    background-color: rgb(226, 119, 43) ;
+    cursor: pointer;
+  box-shadow: #00D4FF 0px 0px 10px 2px;
+    scale: 1.05;
+}
 
 
+
+
+
+.container {
+    background-color: rgba(68, 110, 138, 0.986);
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.containerDatosPersonales{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+.perfil-datos-personales{
+     background-color: rgba(68, 110, 138, 0.986);
+    width: 300px;
+    height: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: aliceblue;
+    font-family: "Ubuntu", sans-serif;
+}
+
+.div_opcionesAlumnos{
+    flex-direction: column;
+    justify-content: center;
+    
+    width: 100px;
+    margin: auto;
+}
+
+/* quiero que formulario quede centrado adentro de containerformulario */
+.containerFormulario {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: auto;
+   
+}
+
+.mostrar{
+     width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: auto;
+}
+
+.ocultar{
+    display: none;
+}
+.formulario {
+    font-family: ubuntu, sans-serif;
+    color: aliceblue;
+    background-color: rgba(112, 128, 144, 0.671);
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: center;
+    width: 400px;
+    padding-left: 20px;
+    border-radius: 10px;
+    padding-top: 20px;
+    margin-bottom: 20px;
+    
+}
+.formulario input {
+    background-color: rgba(97, 138, 179, 0.836);
+    width: 300px;
+    height: 30px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: aliceblue;
+}
+
+.formulario select {
+    background-color: rgba(97, 138, 179, 0.836);
+    color: aliceblue;
+    width: 300px;
+    height: 30px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
 /* Tablet (768px+) */
 @media (min-width: 768px) {
   body { 
