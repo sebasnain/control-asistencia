@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+        <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<h1 class="text">Asistencia:</h1>
+<div class="containerFormulario">
+    <form class="formulario" action="">
+         <label for="usuario">Usuario</label>
+         <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+         <label for="contraseña">Contraseña</label>
+         <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
+       
+      <div class="checkbox-container" >
+         <label for="permisosDeGeolocalizacion">Permitir geolocalización</label>
+         <input type="checkbox" id="permisosDeGeolocalizacion" name="permisosDeGeolocalizacion" required>
+            </div>
+         <p>Esto es necesario para verificar tu ubicación y confirmar que estás presente en el evento.</p>
+
+       <button class="button" type="submit" id="btnConfirmarAsistencia">Confirmar Asistencia</button>
+
+       </form>
+   </div>
+</div>
+
+<script src="js/firebase-init.js"></script>
+    <script src="js/autch.js"></script>
+<script src="js/asistencia.js"></script>
+    
+</body>
+</html>

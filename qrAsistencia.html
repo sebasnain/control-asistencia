@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generacion de QR de Asistencia</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<h1 class="text">Generacion de QR de Asistencia</h1>
+<div class="containerFormulario">
+    <form  class="formulario" action="">
+    <label for="carrera">Selecciona la carrera:</label>
+    <select id="carrera" name="carrera" required>
+        <option value="">--Selecciona una opción--</option>
+        <option value="Mantenimiento">Mantenimiento Industrial</option>
+        <option value="Redes">Generación Redes Eléctrica</option>
+    </select>
+    <p>Fecha: <span id="fechaHoy"></span></p>
+    <button class="button" type="submit">Generar QR</button>
+</form>
+</div>
+
+<div class="containerdivQR">
+<div class="containerQR" id="containerQR"></div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+
+    <script src="js/firebase-init.js"></script>
+    <script src="js/autch.js"></script>
+    <script src="js/qrAsistencia.js"></script>
+</body>
+</html>
